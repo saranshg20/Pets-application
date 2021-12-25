@@ -240,7 +240,18 @@ public class EditorActivity extends AppCompatActivity {
         String nameString = mNameEditText.getText().toString().trim();
         String breedString = mBreedEditText.getText().toString().trim();
         String weightString = mWeightEditText.getText().toString().trim();
-        int weight = Integer.parseInt(weightString);
+        int weight;
+        if (TextUtils.isEmpty(weightString)) {
+            weight = 0;
+        } else weight = Integer.parseInt(weightString);
+
+        //sanity check for the data to provide better UI experience to the users
+        if (TextUtils.isEmpty(nameString)) {
+            return;
+        }
+        if (TextUtils.isEmpty(breedString)) {
+            breedString = "Unknown Breed";
+        }
 
         // Create a ContentValues object where column names are the keys,
         // and pet attributes from the editor are the values.
